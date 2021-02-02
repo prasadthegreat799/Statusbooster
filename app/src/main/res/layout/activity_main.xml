@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/whiteCardColor"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="wrap_content"
+        style="@style/parent">
+        <RelativeLayout
+            style="@style/parent">
+            <LinearLayout android:id="@+id/mainlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="12.0"
+                android:layout_alignParentTop="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/login_shape_bk"
+                    android:layout_weight="3.0" style="@style/parent">
+                    <ImageView
+                        android:background="@drawable/ic_login_bk"
+                        android:contentDescription="login background"
+                        style="@style/parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="30.0dip"
+                android:layout_marginTop="40.0dip"
+                android:layout_marginRight="30.0dip"
+                android:layout_alignParentTop="true">
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/usernamemain"
+                    android:layout_marginTop="40.0dip"
+                    android:text="Welcome User"
+                    style="@style/headerText" />
+                <include android:id="@+id/homelayout" layout="@layout/homelayout" />
+            </LinearLayout>
+            <include
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0.0dip"
+                android:layout_marginTop="75.0dip"
+                android:layout_marginRight="0.0dip"
+                android:layout_below="@id/mainlayout"
+                layout="@layout/mainactivitybuttens" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

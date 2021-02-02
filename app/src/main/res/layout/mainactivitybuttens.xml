@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+
+
+    <LinearLayout
+        style="@style/linearParent"
+        android:padding="@dimen/loginViewsMargin"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/phonenumberlistbtn"
+        android:layout_height="100.0dip"
+        android:layout_width="150.0dip"
+        android:text="Phone\nNumbers"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/primaryTextColor"/>
+
+    <Button
+        android:id="@+id/editprofilebtn"
+        android:layout_height="100.0dip"
+        android:layout_width="150.0dip"
+        android:text="Add Your\nPhone Number"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/primaryTextColor"/>
+
+</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/whatsappgrouplistbtn"
+        android:layout_height="100.0dip"
+        android:layout_width="150.0dip"
+        android:text="WhatsApp\n Groups"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/primaryTextColor"/>
+
+    <Button
+        android:id="@+id/addwhatsappgroupbtn"
+        android:layout_height="100.0dip"
+        android:layout_width="150.0dip"
+        android:text="Add Your\nWhatsapp Group"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/primaryTextColor"/>
+
+</LinearLayout>
+
+
+    -<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/contactusbtn"
+        android:layout_height="100.0dip"
+        android:layout_width="150.0dip"
+        android:text="Contact Us"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/primaryTextColor"/>
+
+    <Button
+        android:id="@+id/sharebtn"
+        android:layout_height="100.0dip"
+        android:layout_width="150.0dip"
+        android:text="Share App"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/roundbutton"
+        android:textColor="@color/primaryTextColor"/>
+
+</LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>
