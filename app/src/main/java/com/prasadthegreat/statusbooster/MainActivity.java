@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         mEditwhatsappgroup=(Button)findViewById(R.id.addwhatsappgroupbtn);
         mContact=(Button)findViewById(R.id.contactusbtn);
         mShare=(Button)findViewById(R.id.sharebtn);
+
+        mphonenumberslist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
     }
     public void onStart() {
