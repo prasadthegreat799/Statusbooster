@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Views Booster</string>
+    <string name="app_name">Status Booster</string>
     <string name="register">REGISTER</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
