@@ -35,8 +35,7 @@ public class PhonenumberActivity extends AppCompatActivity {
         mUserslist=(RecyclerView)findViewById(R.id.phonelist);
         mUserslist.setHasFixedSize(true);
         mUserslist.setLayoutManager(new LinearLayoutManager(this));
-        ref = FirebaseDatabase.getInstance().getReference().child("usersphone");
-
+        ref = FirebaseDatabase.getInstance().getReference().child("phonelist");
     }
 
     @Override

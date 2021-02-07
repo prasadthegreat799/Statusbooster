@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,10 +69,15 @@ public class MainActivity extends AppCompatActivity {
         mContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto","prasadthegreat799@gmail.com", null));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Mail From StatusBooster");
-                startActivity(Intent.createChooser(intent, "Choose an Email client :"));
+                Intent intent = new Intent (Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"geniusdeveloper799@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Please,Enter Your Feedback or Complaint");
+                intent.setPackage("com.google.android.gm");
+                if (intent.resolveActivity(getPackageManager())!=null)
+                    startActivity(intent);
+                else
+                    Toast.makeText(MainActivity.this,"Gmail App is not installed",Toast.LENGTH_SHORT).show();
             }
         });
 
