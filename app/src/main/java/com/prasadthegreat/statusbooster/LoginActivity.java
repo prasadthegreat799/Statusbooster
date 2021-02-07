@@ -3,6 +3,7 @@ package com.prasadthegreat.statusbooster;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity
     private EditText mEmail;
     private EditText mPassword;
     private Button mLogin;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -29,6 +31,11 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        progressDialog=new ProgressDialog(LoginActivity.this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please,wait....");
+        progressDialog.setCancelable(false);
 
         mEmail=(EditText)findViewById(R.id.editTextEmail);
         mPassword=(EditText)findViewById(R.id.editTextPassword);
@@ -52,8 +59,9 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
-    private void login(String email, String password)
+    private void login(String email, final String password)
     {
+        progressDialog.show();
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
         {
             @Override
@@ -61,11 +69,13 @@ public class LoginActivity extends AppCompatActivity
             {
                 if(task.isSuccessful())
                 {
+                    progressDialog.dismiss();
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }else
                 {
+                    progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this,"Enter Correct Details",Toast.LENGTH_SHORT).show();
                 }
             }

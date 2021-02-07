@@ -3,6 +3,7 @@ package com.prasadthegreat.statusbooster;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,11 +25,17 @@ public class UpdateWhatsappgroupActivity extends AppCompatActivity {
     private EditText mGroupname,mLink;
     private DatabaseReference mDatabase;
     private long count=0;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_whatsappgroup);
+
+        progressDialog=new ProgressDialog(UpdateWhatsappgroupActivity.this);
+        progressDialog.setTitle("Uploading Data");
+        progressDialog.setMessage("Please,wait....");
+        progressDialog.setCancelable(false);
 
         mDatabase= FirebaseDatabase.getInstance().getReference().child("userswhatsappgroups");
         mSubmitlink=(Button)findViewById(R.id.submitwhatsbtn);
@@ -58,6 +65,7 @@ public class UpdateWhatsappgroupActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(groupname) | TextUtils.isEmpty(grouplink)){
                     Toast.makeText(UpdateWhatsappgroupActivity.this,"Please,fill enter values",Toast.LENGTH_LONG).show();
                 }else{
+                    progressDialog.show();
                     user.setCount((int) ++count);
                     user.setGrouplink(grouplink);
                     user.setGroupname(groupname);
@@ -69,9 +77,10 @@ public class UpdateWhatsappgroupActivity extends AppCompatActivity {
                                 mLink.setText("");
                                 mGroupname.setText("");
                                 Toast.makeText(UpdateWhatsappgroupActivity.this,"Data uploaded success fully..",Toast.LENGTH_LONG).show();
-
+                                progressDialog.dismiss();
 
                             }else{
+                                progressDialog.dismiss();
                                 Toast.makeText(UpdateWhatsappgroupActivity.this,"Please,try again..",Toast.LENGTH_LONG).show();
                             }
                         }

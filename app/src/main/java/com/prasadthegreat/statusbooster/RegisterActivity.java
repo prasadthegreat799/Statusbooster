@@ -3,6 +3,7 @@ package com.prasadthegreat.statusbooster;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity
     private EditText mPassword;
     private EditText mPhone;
     private Button mRegbtn;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -38,8 +40,12 @@ public class RegisterActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
+        progressDialog=new ProgressDialog(RegisterActivity.this);
+        progressDialog.setTitle("Uploading Data");
+        progressDialog.setMessage("Please,wait....");
+        progressDialog.setCancelable(false);
 
+        mAuth = FirebaseAuth.getInstance();
         mUsername=(EditText)findViewById(R.id.regusername);
         mEmail=(EditText)findViewById(R.id.regemail);
         mPassword=(EditText)findViewById(R.id.regpassword);
@@ -70,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private void register_user(final String name, final String mail, final String password, final String phonenumber)
     {
+        progressDialog.show();
         mAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
         {
             @Override
@@ -105,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity
                                     {
                                         if (task.isSuccessful())
                                         {
+                                            progressDialog.dismiss();
                                             Toast.makeText(getApplicationContext(),"Registration Success",Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(getApplicationContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                         }
@@ -116,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity
                     });
                 }else
                 {
+                    progressDialog.dismiss();
                       Toast.makeText(getApplicationContext(),"please,try again",Toast.LENGTH_SHORT).show();
                 }
             }

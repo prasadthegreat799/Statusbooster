@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,8 +32,6 @@ public class WhatsgroupActivity extends AppCompatActivity {
         mUserslist=(RecyclerView)findViewById(R.id.whatslist);
         mUserslist.setHasFixedSize(true);
         mUserslist.setLayoutManager(new LinearLayoutManager(this));
-
-
         ref= FirebaseDatabase.getInstance().getReference().child("userswhatsappgroups");
     }
 
