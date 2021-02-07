@@ -65,6 +65,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/registebtn"
             style="@style/loginButton"
             android:layout_gravity="center"
             android:text="Register" />

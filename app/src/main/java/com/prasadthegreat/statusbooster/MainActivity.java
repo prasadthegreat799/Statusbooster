@@ -47,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onStart() {
         super.onStart();
+        FirebaseAuth.getInstance().signOut();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null){
-           // Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-           // startActivity(intent);
+            Intent intent=new Intent(MainActivity.this,RegisterActivity.class);
+           startActivity(intent);
         }
     }
 }

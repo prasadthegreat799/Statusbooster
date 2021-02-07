@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     private  EditText mEmail;
     private EditText mPassword;
     private EditText mPhone;
+    Button mRegbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +36,28 @@ public class RegisterActivity extends AppCompatActivity {
         mEmail=(EditText)findViewById(R.id.regemail);
         mPassword=(EditText)findViewById(R.id.regpassword);
         mPhone=(EditText)findViewById(R.id.regmobilenumber);
-        register_user(mUsername,mEmail,mPassword,mPhone);
+        mRegbtn=(Button)findViewById(R.id.registebtn);
 
+        mRegbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String name=mUsername.getText().toString();
+                String mail=mEmail.getText().toString();
+                String password=mPassword.getText().toString();
+                String phonenumber=mPhone.getText().toString();
+
+                if(name.isEmpty() || mail.isEmpty() || password.isEmpty() || password.isEmpty()){
+                    Toast.makeText(RegisterActivity.this,"Please,Fill all fields",Toast.LENGTH_SHORT).show();
+                }else {
+                    register_user(name,mail,password,phonenumber);
+                }
+
+            }
+        });
     }
 
-    private void register_user(EditText mUsername, EditText mEmail, EditText mPassword, EditText mPhone) {
-        String name=mUsername.getText().toString();
-        String mail=mEmail.getText().toString();
-        String password=mPassword.getText().toString();
-        String phonenumber=mPhone.getText().toString();
-
+    private void register_user(String name,String mail,String password,String phonenumber) {
         mAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
