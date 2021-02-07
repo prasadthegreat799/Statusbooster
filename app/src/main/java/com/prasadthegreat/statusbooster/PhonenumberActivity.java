@@ -18,6 +18,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+
+import java.util.HashMap;
 
 public class PhonenumberActivity extends AppCompatActivity {
 
@@ -27,10 +30,14 @@ public class PhonenumberActivity extends AppCompatActivity {
     private  int stop=0;
     private String phonenumber;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonenumber);
+
+
 
         mUserslist=(RecyclerView)findViewById(R.id.phonelist);
         mUserslist.setHasFixedSize(true);
@@ -50,6 +57,7 @@ public class PhonenumberActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final UsersViewholde holder, int position, @NonNull users model) {
                 holder.mname.setText(model.getName());
                 holder.mphone.setText(model.getPhone());
+                holder.mcount.setText(String.valueOf(++position));
 
 
                 holder.mname.setOnClickListener(new View.OnClickListener() {
@@ -119,11 +127,12 @@ public class PhonenumberActivity extends AppCompatActivity {
 
 class UsersViewholde extends RecyclerView.ViewHolder {
 
-    TextView mname,mphone;
+    TextView mname,mphone,mcount;
 
     public UsersViewholde(@NonNull View itemView) {
         super(itemView);
         mname=(TextView)itemView.findViewById(R.id.name);
         mphone=(TextView)itemView.findViewById(R.id.phone);
+        mcount=(TextView)itemView.findViewById(R.id.counttxt);
     }
 }
