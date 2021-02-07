@@ -13,12 +13,12 @@
         android:padding="@dimen/loginViewsMargin"
         style="@style/linearParent">
         <TextView
-            android:id="@+id/riddleofthedayhome"
+            android:id="@+id/headingtxt"
             android:layout_marginTop="@dimen/loginViewsMargin"
             android:text="Add My Number"
             style="@style/headerTextPrimary" />
         <TextView
-            android:id="@+id/riddleofthedayhomename"
+            android:id="@+id/msgtxt"
             android:layout_marginTop="@dimen/loginViewsMargin"
             android:text="\ 7997288157"
             style="@style/headerTextPrimary" />
