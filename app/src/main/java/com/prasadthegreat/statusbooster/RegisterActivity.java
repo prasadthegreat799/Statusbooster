@@ -3,6 +3,7 @@ package com.prasadthegreat.statusbooster;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,18 +16,25 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class RegisterActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+public class RegisterActivity extends AppCompatActivity
+{
 
     private FirebaseAuth mAuth;
     private EditText mUsername;
     private  EditText mEmail;
     private EditText mPassword;
     private EditText mPhone;
-    Button mRegbtn;
+    private Button mRegbtn;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -38,7 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
         mPhone=(EditText)findViewById(R.id.regmobilenumber);
         mRegbtn=(Button)findViewById(R.id.registebtn);
 
-        mRegbtn.setOnClickListener(new View.OnClickListener() {
+        mRegbtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
 
@@ -47,9 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String password=mPassword.getText().toString();
                 String phonenumber=mPhone.getText().toString();
 
-                if(name.isEmpty() || mail.isEmpty() || password.isEmpty() || password.isEmpty()){
+                if(name.isEmpty() || mail.isEmpty() || password.isEmpty() || password.isEmpty())
+                {
                     Toast.makeText(RegisterActivity.this,"Please,Fill all fields",Toast.LENGTH_SHORT).show();
-                }else {
+                }else
+                {
                     register_user(name,mail,password,phonenumber);
                 }
 
@@ -57,19 +68,70 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register_user(String name,String mail,String password,String phonenumber) {
-        mAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void register_user(final String name, final String mail, final String password, final String phonenumber)
+    {
+        mAuth.createUserWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
+        {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(RegisterActivity.this,"Registred Successful",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(RegisterActivity.this,"Enter Correct Details",Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<AuthResult> task)
+            {
+                if(task.isSuccessful())
+                {
+                    final String currentuser=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("users");
+                    final HashMap<String,String> user_details=new HashMap<>();
+
+                    String data=currentuser.toString().trim();
+
+                    user_details.put("name",name);
+                    user_details.put("phone",phonenumber);
+                    user_details.put("mail",mail);
+                    user_details.put("password",password);
+
+                    myRef.child(currentuser).setValue(user_details).addOnCompleteListener(new OnCompleteListener<Void>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if (task.isSuccessful())
+                            {
+                                DatabaseReference phonelist =FirebaseDatabase.getInstance().getReference().child("phonelist");
+                                phonelist.child(currentuser).setValue(user_details).addOnCompleteListener(new OnCompleteListener<Void>()
+                                {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task)
+                                    {
+                                        if (task.isSuccessful())
+                                        {
+                                            Toast.makeText(getApplicationContext(),"Registration Success",Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                        }
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }else
+                {
+                      Toast.makeText(getApplicationContext(),"please,try again",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+    public void  loginmethod(View view)
+    {
+        startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        finishAffinity();
+        finish();
+        super.onBackPressed();
 
     }
 }

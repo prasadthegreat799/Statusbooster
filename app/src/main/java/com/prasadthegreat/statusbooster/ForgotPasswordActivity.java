@@ -11,4 +11,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        finishAffinity();
+        finish();
+        super.onBackPressed();
+    }
 }

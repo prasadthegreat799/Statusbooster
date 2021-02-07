@@ -76,6 +76,7 @@
             android:textStyle="bold"
             android:textColor="@color/primaryTextColor"
             android:text="@string/signup_login_hint"
+            android:onClick="loginmethod"
             android:layout_marginTop="@dimen/loginViewsMargin"/>
 
     </LinearLayout>
